@@ -162,6 +162,10 @@ use std::{sync::Arc, time::Duration};
 #[cfg(feature = "sqlite")]
 use std::convert::TryFrom;
 
+use log::Level;
+use log::info;
+console_log::init_with_level(Level::Info);
+
 /// The main entry point and an abstraction over database connections and
 /// connection handling.
 #[derive(Clone)]
@@ -466,6 +470,7 @@ impl Quaint {
         let inner = match res {
             Ok(conn) => conn,
             Err(mobc::Error::Timeout) => {
+                info!("mobc::Error::Timeout");
                 let state = self.inner.state().await;
                 // We can use unwrap here because a pool timeout has to be set to use a connection pool
                 let timeout_duration = self.pool_timeout.unwrap();
@@ -475,6 +480,7 @@ impl Quaint {
             }
             Err(mobc::Error::Inner(e)) => return Err(e),
             Err(e @ mobc::Error::BadConn) => {
+                info!("mobc::Error::BadConn")
                 let error = Error::builder(ErrorKind::ConnectionError(Box::new(e))).build();
                 return Err(error);
             }
