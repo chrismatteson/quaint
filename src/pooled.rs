@@ -191,7 +191,7 @@ impl Builder {
         let connection_limit = num_cpus::get_physical() * 2 + 1;
         let connection_info = ConnectionInfo::from_url(url)?;
         let max_idle_lifetime = 10000;
-        let max_lifetime = 10000l
+        let max_lifetime = 10000;
 
         Ok(Self {
             manager,
