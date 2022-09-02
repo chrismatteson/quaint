@@ -197,6 +197,8 @@ impl Builder {
             manager,
             connection_info,
             connection_limit,
+            max_idle_lifetime,
+            max_lifetime,
             max_idle: None,
             health_check_interval: None,
             test_on_check_out: false,
