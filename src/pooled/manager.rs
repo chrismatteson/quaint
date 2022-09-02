@@ -12,10 +12,6 @@ use crate::{
 use async_trait::async_trait;
 use mobc::{Connection as MobcPooled, Manager};
 
-use log::Level;
-use log::info;
-console_log::init_with_level(Level::Info);
-
 /// A connection from the pool. Implements
 /// [Queryable](connector/trait.Queryable.html).
 pub struct PooledConnection {
@@ -27,9 +23,7 @@ impl TransactionCapable for PooledConnection {}
 #[async_trait]
 impl Queryable for PooledConnection {
     async fn query(&self, q: ast::Query<'_>) -> crate::Result<connector::ResultSet> {
-        info!("Before Query");
         self.inner.query(q).await
-        info!("After Query");
     }
 
     async fn query_raw(&self, sql: &str, params: &[ast::Value<'_>]) -> crate::Result<connector::ResultSet> {
