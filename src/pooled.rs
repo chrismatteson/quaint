@@ -184,6 +184,7 @@ pub struct Builder {
     health_check_interval: Option<Duration>,
     test_on_check_out: bool,
     pool_timeout: Option<Duration>,
+    health_check: bool,
 }
 
 impl Builder {
@@ -192,6 +193,7 @@ impl Builder {
         let connection_info = ConnectionInfo::from_url(url)?;
         let max_idle_lifetime = Some(Duration::new(1000, 0));
         let max_lifetime = Some(Duration::new(1000, 0));
+        let health_check = false;
 
         Ok(Self {
             manager,
@@ -199,6 +201,7 @@ impl Builder {
             connection_limit,
             max_idle_lifetime,
             max_lifetime,
+            health_check,
             max_idle: None,
             health_check_interval: None,
             test_on_check_out: false,
