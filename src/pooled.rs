@@ -194,6 +194,7 @@ impl Builder {
         let max_idle_lifetime = Some(Duration::new(1000, 0));
         let max_lifetime = Some(Duration::new(1000, 0));
         let health_check = false;
+        let max_bad_conn_retries = 1000;
 
         Ok(Self {
             manager,
@@ -202,6 +203,7 @@ impl Builder {
             max_idle_lifetime,
             max_lifetime,
             health_check,
+            max_bad_conn_retries,
             max_idle: None,
             health_check_interval: None,
             test_on_check_out: false,
